@@ -16,6 +16,7 @@ export const ContactForm = ({
         <input
           name="name"
           value={name}
+          type="text"
           onChange={(e) => setName(e.target.value)}
         />
       </label>
@@ -24,6 +25,7 @@ export const ContactForm = ({
         <input
           name="phone"
           value={phone}
+          type="tel"
           onChange={(e) => setPhone(e.target.value)}
         />
       </label>
@@ -31,6 +33,7 @@ export const ContactForm = ({
         Email address
         <input
           name="email"
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
