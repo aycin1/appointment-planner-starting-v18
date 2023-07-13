@@ -3,35 +3,30 @@ import React, { useState, useEffect } from "react";
 import { ContactForm } from "../../components/contactForm/ContactForm";
 import { TileList } from "../../components/tileList/TileList";
 
-export const ContactsPage = (props) => {
+export const ContactsPage = ({ contacts, addContact }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
-  const isNameDuplicated = props.contacts.some(
-    (contact) => name === contact.name
-  );
+  useEffect(() => {
+    console.log(contacts);
+  }, [contacts]);
 
-  function clearForm() {
-    setName("");
-    setPhone("");
-    setEmail("");
-  }
+  const isNameDuplicated = () => {
+    return contacts.some((contact) => contact.name === name);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isNameDuplicated) {
-      return "This name already exists in the contacts list, please try again";
+    if (!isNameDuplicated()) {
+      addContact(name, phone, email);
+      setName("");
+      setPhone("");
+      setEmail("");
     } else {
-      props.addContact(name, phone, email);
-      clearForm();
+      alert("This name already exists in the contacts list, please try again");
     }
   };
-
-  /*
-  Using hooks, check for contact name in the 
-  contacts array variable in props
-  */
 
   return (
     <div>
@@ -50,7 +45,7 @@ export const ContactsPage = (props) => {
       <hr />
       <section>
         <h2>Contacts</h2>
-        <TileList contacts={props.contacts} />
+        <TileList contacts={contacts} />
       </section>
     </div>
   );
